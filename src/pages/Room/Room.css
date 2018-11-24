@@ -70,3 +70,19 @@
     visibility: visible;
     background: #000000cc;
 }
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-info-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.user-info-name {
+    margin-left: 12px
+}

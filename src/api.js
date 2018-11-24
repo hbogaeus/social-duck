@@ -8,7 +8,3 @@ export const search = (token, query) => {
       }
   });
 };
-
-export const addTrack = (socket, trackURI) => {
-  console.log(trackURI); 
-};

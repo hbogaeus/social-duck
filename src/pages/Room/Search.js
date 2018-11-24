@@ -17,7 +17,6 @@ class Search extends Component {
     this.performSearch = this.performSearch.bind(this);
     this.openOverlay = this.openOverlay.bind(this);
     this.closeOverlay = this.closeOverlay.bind(this);
-    this.handleTrackClick = this.handleTrackClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -57,12 +56,9 @@ class Search extends Component {
     });
   }
 
-  handleTrackClick(uri) {
-    API.addTrack(null, uri);
-  }
-
   render() {
     const { query, result, overlayOpen } = this.state;
+    const { sendTrack } = this.props;
 
     return (
         <div>
@@ -82,7 +78,7 @@ class Search extends Component {
                       name={item.name}
                       artists={item.artists.map(artist => artist.name).join(', ')}
                       albumImageURL={item.album.images[0].url}
-                      handleTrackClick={() => this.handleTrackClick(item.uri)}
+                      handleTrackClick={() => sendTrack(item.uri)}
                   />
               ))}
             </div>

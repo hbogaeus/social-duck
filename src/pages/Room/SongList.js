@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 
-class SongList extends Component {
+class SongList extends PureComponent {
   render() {
+
+    const {trackList} = this.props;
+
     return (
         <ol>
-          <li>Love Is All</li>
-          <li>Rivers</li>
-          <li>The Gardener</li>
-          <li>King of Spain</li>
-          <li>The Dreamer</li>
+          {trackList.map(track => (
+              <li>
+                <span>{track.name}</span>
+              </li>
+          ))}
         </ol>
     );
   }
