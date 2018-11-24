@@ -1,0 +1,72 @@
+.search-input {
+    font-size: 3rem;
+    width: 100%;
+    border: 0;
+    font-family: Spotify;
+    background: #ffffff;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-input.open {
+    background: #000000cc;
+    color: #ffffff;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    margin: 24px;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+}
+
+.search-item-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    justify-content: center;
+    margin-left: 16px;
+}
+
+.search-item-image {
+    height: 150px;
+}
+
+.search-item-title {
+    color: #ffffff;
+}
+
+.search-item-artist {
+    color: #cccccc;
+}
+
+.search-item-add-button {
+
+}
+
+.overlay-close-button {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.overlay {
+    position: absolute;
+    height: calc(100vh - 3rem);
+    width: 100vw;
+    background: initial;
+    overflow: auto;
+    visibility: hidden;
+}
+
+.overlay.open {
+    visibility: visible;
+    background: #000000cc;
+}
