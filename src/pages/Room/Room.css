@@ -160,6 +160,10 @@
     height: 100px;
 }
 
+.song-list-item-artist {
+    color: #a9a9a9;
+}
+
 .song-list-item-votes {
     margin-right: 16px;
 }

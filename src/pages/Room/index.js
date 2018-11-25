@@ -158,15 +158,26 @@ class Room extends Component {
               <div className="room-start-main">
                 <h1 style={{fontSize: '6rem'}}>Social Duck</h1>
                 <button
-                    style={{marginBottom: '2.5rem'}}
+                    style={{
+                      width: 240,
+                      marginBottom: '2.5rem',
+                      paddingTop: 14,
+                      paddingBottom: 12
+                    }}
                     className="btn btn-default"
                     onClick={this.createRoom}
                 >
                   Create
                 </button>
-                <div className="input-group">
+                <div
+                    style={{width: 240}}
+                    className="input-group">
                   <input
-                      style={{width: '7rem'}}
+                      style={{
+                        borderTopLeftRadius: '500px',
+                        borderBottomLeftRadius: '500px',
+                        paddingLeft: '16px'
+                      }}
                       type="text"
                       className="room-code-input form-control"
                       name="roomCode"
