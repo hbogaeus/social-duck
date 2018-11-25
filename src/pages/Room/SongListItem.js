@@ -15,7 +15,7 @@ class SongListItem extends PureComponent {
               disabled={!canVote}
               onClick={() => handleTrackClick(uri)}
           >
-            Add
+            Vote
           </button>
         </div>
     )

@@ -119,6 +119,7 @@ class Room extends Component {
       socketReady,
       isRoomOwner,
       roomCode,
+      roomId,
       token,
       user,
       trackList
@@ -132,11 +133,16 @@ class Room extends Component {
                     token={token}
                     sendTrack={this.sendTrack}
                 />
-                {user && (
-                    <UserInfo
-                        name={user.name}
-                        profileImage={user.profileImage}
-                    />)}
+                <div className="room-header">
+                  {user && (
+                      <UserInfo
+                          name={user.name}
+                          profileImage={user.profileImage}
+                      />)}
+                      <span>
+                        {roomId}
+                      </span>
+                </div>
                 <SongList
                     userId={user && user.userId}
                     trackList={trackList}
