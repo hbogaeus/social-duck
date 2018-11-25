@@ -84,7 +84,7 @@ class Room extends Component {
   joinRoom() {
     const {roomCode} = this.state;
 
-    this.socket = new WebSocket(`${wsBase}/join?code=${this.code}&room=${roomCode}`);
+    this.socket = new WebSocket(`${wsBase}/join?code=${this.code}&room_id=${roomCode}`);
     this.socket.addEventListener('open', () => this.setState({
       isRoomOwner: false,
     }));
@@ -140,7 +140,9 @@ class Room extends Component {
                     trackList={trackList}
                     sendTrack={this.sendTrack}
                 />
-                {isRoomOwner && <PlayerControl token={token}/>}
+                {isRoomOwner && <PlayerControl
+                    token={token}
+                />}
               </div>
           ) : (
               <div className="room-start-main">
@@ -156,7 +158,7 @@ class Room extends Component {
                   <input
                       type="text"
                       className="form-control"
-                      name="room"
+                      name="roomCode"
                       value={roomCode}
                       onChange={this.handleChange}
                   />

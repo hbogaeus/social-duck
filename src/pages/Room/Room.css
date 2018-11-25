@@ -17,6 +17,8 @@
 }
 
 .search-input {
+    position: relative;
+    z-index: 20;
     font-size: 3rem;
     width: 100%;
     border: 0;
@@ -77,7 +79,11 @@
 
 .overlay {
     position: absolute;
-    height: calc(100vh - 3rem);
+    z-index: 10;
+    left: 0;
+    top: 0;
+    padding-top: 3rem;
+    height: 100vh;
     width: 100vw;
     background: initial;
     overflow: auto;

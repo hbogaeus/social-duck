@@ -1,12 +1,30 @@
-import React, { Component} from 'react';
-import { PlayerIcon } from 'react-player-controls';
+import React, { PureComponent } from 'react';
+import * as API from '../../api';
 
-class PlayerControl extends Component {
+class PlayerControl extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handlePlayClick = this.handlePlayClick.bind(this);
+    this.handleSkipClick = this.handleSkipClick.bind(this);
+  }
+
+  handlePlayClick() {
+    const {token} = this.props;
+    API.play(token);
+  }
+
+  handleSkipClick() {
+    const {token} = this.props;
+    API.skip(token);
+  }
+
+
   render() {
     return (
         <div className="player-control-main">
-          <button><PlayerIcon.Play/></button>
-          <button><PlayerIcon.Next/></button>
+          <button onClick={this.handlePlayClick}>Play</button>
+          <button onClick={this.handleSkipClick}>Skip</button>
         </div>
     )
   }
