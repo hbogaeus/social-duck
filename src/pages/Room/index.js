@@ -45,7 +45,7 @@ class Room extends Component {
 
   handleMessageEvent(unparsedMessage) {
     const message = JSON.parse(unparsedMessage);
-    console.log(message);
+    console.log("Received: ", message);
     switch (message.type) {
       case 'init':
         this.setState({
@@ -100,6 +100,8 @@ class Room extends Component {
       room_id: roomId,
       data: data
     };
+
+    console.log("Sending: ", message);
 
     this.socket.send(JSON.stringify(message));
   }

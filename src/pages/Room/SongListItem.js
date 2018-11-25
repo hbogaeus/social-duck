@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 class SongListItem extends PureComponent {
   render() {
-    const {name, artists, albumImageURL, handleTrackClick, canVote} = this.props;
+    const {name, uri, artists, albumImageURL, handleTrackClick, canVote} = this.props;
 
     return (
         <div className="song-list-item">
@@ -13,8 +13,10 @@ class SongListItem extends PureComponent {
           </div>
           <button
               disabled={!canVote}
-              onClick={handleTrackClick}
-          >Add</button>
+              onClick={() => handleTrackClick(uri)}
+          >
+            Add
+          </button>
         </div>
     )
   }

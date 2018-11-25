@@ -17,6 +17,7 @@ class SongList extends PureComponent {
                     name={track.uri}
                     canVote={canVote}
                     handleTrackClick={sendTrack}
+                    uri={track.uri}
                 />
                 )
           })}
