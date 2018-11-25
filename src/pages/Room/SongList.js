@@ -12,14 +12,16 @@ class SongList extends PureComponent {
         <div className="song-list-main">
           {trackList.map(track => {
             const canVote = !some(track.voters, voter => voter.user_id === userId);
+            const nrVotes = track.voters.length;
 
             return (
                 <SongListItem
                     key={track.uri}
-                    name={track.uri}
+                    name={track.name}
                     artists={'artists'}
                     albumImageURL={img}
                     canVote={canVote}
+                    nrVotes={nrVotes}
                     handleTrackClick={sendTrack}
                     uri={track.uri}
                 />

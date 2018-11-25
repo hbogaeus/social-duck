@@ -18,7 +18,7 @@
 }
 
 .song-list-main {
-    margin-top: 16px;
+    margin-top: 24px;
     flex-grow: 2;
 }
 
@@ -58,9 +58,16 @@
 }
 
 .search-item {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     margin-bottom: 16px;
+    background: transparent;
+    transition: background-color 200ms ease;
+}
+
+.search-item:hover {
+    background-color: black;
 }
 
 .search-item-content {
@@ -76,6 +83,7 @@
 }
 
 .search-item-title {
+    margin-top: 0;
     color: #ffffff;
 }
 
@@ -152,6 +160,10 @@
     height: 100px;
 }
 
+.song-list-item-votes {
+    margin-right: 16px;
+}
+
 .song-list-item-image {
     height: 100%;
     width: 100px;
@@ -163,4 +175,8 @@
     flex-grow: 2;
     justify-content: center;
     margin-left: 16px;
+}
+
+.do-not-show {
+    visibility: hidden;
 }

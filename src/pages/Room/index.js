@@ -38,9 +38,11 @@ class Room extends Component {
   handleChange(event) {
     const {name, value} = event.target;
 
-    this.setState({
-      [name]: value
-    })
+    if (value.length <= 4) {
+      this.setState({
+        [name]: value
+      })
+    }
   }
 
   handleMessageEvent(unparsedMessage) {
@@ -164,8 +166,9 @@ class Room extends Component {
                 </button>
                 <div className="input-group">
                   <input
+                      style={{width: '7rem'}}
                       type="text"
-                      className="form-control"
+                      className="room-code-input form-control"
                       name="roomCode"
                       value={roomCode}
                       onChange={this.handleChange}
