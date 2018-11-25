@@ -6,7 +6,7 @@ import qs from 'qs';
 import './Room.css';
 import UserInfo from "./UserInfo";
 
-const TOKEN = 'BQC499QL6Pl55wXiR9HpWoSRxZ2c9jooNHcPEp_-RgVSfyCPSwfWLofs1h75VI2LqOLf93VO1SLpkmqr0NztUUuzZA9nhLyNcfEDjk5Ct7Dz40s0FybKAq_cRgUfL67MAOnm9TR1VBwD5UaA-H3byXt4YUBlBzJpJKbm2AKXaviMVA_joEJfy3D7FRMpjU36fJuS';
+const wsBase = 'ws://localhost:1337';
 
 class Room extends Component {
   constructor(props) {
@@ -49,12 +49,22 @@ class Room extends Component {
     switch (message.type) {
       case 'init':
         this.setState({
+          socketReady: true,
           token: message.token,
           roomId: message.room_id,
           user: {
             name: message.display_name,
-            profileImage: message.profile_image
+            profileImage: message.profile_image,
+            userId: message.user_id
           }
+        });
+        break;
+      case 'notify':
+        this.setState({
+          trackList: [
+            message.track,
+            ...message.next_tracks
+          ]
         });
         break;
       default:
@@ -63,9 +73,8 @@ class Room extends Component {
   }
 
   createRoom() {
-    this.socket = new WebSocket(`ws://localhost:1337/create?code=${this.code}`);
+    this.socket = new WebSocket(`${wsBase}/create?code=${this.code}`);
     this.socket.addEventListener('open', () => this.setState({
-      socketReady: true,
       isRoomOwner: true,
     }));
 
@@ -75,9 +84,8 @@ class Room extends Component {
   joinRoom() {
     const {roomCode} = this.state;
 
-    this.socket = new WebSocket(`ws://localhost:1337/join?code=${this.code}&room=${roomCode}`);
+    this.socket = new WebSocket(`${wsBase}/join?code=${this.code}&room=${roomCode}`);
     this.socket.addEventListener('open', () => this.setState({
-      socketReady: true,
       isRoomOwner: false,
     }));
 
@@ -85,7 +93,8 @@ class Room extends Component {
   }
 
   sendMessage(type, data) {
-    const { roomId } = this.state;
+    const {roomId} = this.state;
+
     const message = {
       type: type,
       room_id: roomId,
@@ -114,9 +123,9 @@ class Room extends Component {
     } = this.state;
 
     return (
-        <div>
+        <Fragment>
           {socketReady ? (
-              <Fragment>
+              <div className="room-main">
                 <Search
                     token={token}
                     sendTrack={this.sendTrack}
@@ -126,23 +135,44 @@ class Room extends Component {
                         name={user.name}
                         profileImage={user.profileImage}
                     />)}
-                <SongList trackList={trackList}/>
-                {isRoomOwner && <PlayerControl/>}
-              </Fragment>
+                <SongList
+                    userId={user && user.userId}
+                    trackList={trackList}
+                    sendTrack={this.sendTrack}
+                />
+                {isRoomOwner && <PlayerControl token={token}/>}
+              </div>
           ) : (
-              <div>
-                <button onClick={this.createRoom}>Create</button>
-                <div>
+              <div className="room-start-main">
+                <h1 style={{fontSize: '6rem'}}>Social Duck</h1>
+                <button
+                    style={{marginBottom: '2.5rem'}}
+                    className="btn btn-default"
+                    onClick={this.createRoom}
+                >
+                  Create
+                </button>
+                <div className="input-group">
                   <input
+                      type="text"
+                      className="form-control"
                       name="room"
                       value={roomCode}
                       onChange={this.handleChange}
                   />
-                  <button onClick={this.joinRoom}>Join</button>
+                  <span className="input-group-btn">
+                    <button
+                        className="btn btn-default"
+                        type="button"
+                        onClick={this.joinRoom}
+                    >
+                    Join
+                  </button>
+                  </span>
                 </div>
               </div>
           )}
-        </div>
+        </Fragment>
     )
   }
 }

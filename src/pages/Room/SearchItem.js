@@ -11,7 +11,12 @@ class SearchItem extends PureComponent {
             <h3 className="search-item-title">{name}</h3>
             <span className="search-item-artist">{artists}</span>
           </div>
-          <button onClick={handleTrackClick}>Add</button>
+          <button
+              className="button"
+              onClick={handleTrackClick}
+          >
+            Add
+          </button>
         </div>
     )
   }

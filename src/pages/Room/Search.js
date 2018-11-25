@@ -61,7 +61,7 @@ class Search extends Component {
     const { sendTrack } = this.props;
 
     return (
-        <div>
+        <div className="search-main">
           <input
               placeholder="Search..."
               className={classnames("search-input", {"open": overlayOpen})}

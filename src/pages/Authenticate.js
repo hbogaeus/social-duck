@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 const PRODUCTION = false;
 
@@ -17,7 +17,11 @@ class Authenticate extends Component {
   }
 
   render() {
-    return <h1>Redirecting...</h1>
+    return (
+        <div className="authenticate-main">
+          <h1>Redirecting...</h1>
+        </div>
+    )
   }
 }
 
