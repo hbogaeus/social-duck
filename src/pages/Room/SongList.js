@@ -8,9 +8,10 @@ class SongList extends PureComponent {
 
     return (
         <div className="song-list-main">
-          {trackList.map(track => {
+          {trackList.map((track, index) => {
             const canVote = !some(track.voters, voter => voter.user_id === userId);
             const nrVotes = track.voters.length;
+            const isPlaying = index === 0;
 
             return (
                 <SongListItem
@@ -22,6 +23,7 @@ class SongList extends PureComponent {
                     nrVotes={nrVotes}
                     handleTrackClick={sendTrack}
                     uri={track.uri}
+                    isPlaying={isPlaying}
                 />
                 )
           })}

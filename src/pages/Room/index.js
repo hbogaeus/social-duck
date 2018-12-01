@@ -5,8 +5,8 @@ import SongList from "./SongList";
 import qs from 'qs';
 import './Room.css';
 import UserInfo from "./UserInfo";
-
-const wsBase = 'ws://localhost:1337';
+import {WS_BASE} from "../../config";
+import * as API from '../../api';
 
 class Room extends Component {
   constructor(props) {
@@ -46,36 +46,40 @@ class Room extends Component {
   }
 
   handleMessageEvent(unparsedMessage) {
-    const message = JSON.parse(unparsedMessage);
-    console.log("Received: ", message);
-    switch (message.type) {
-      case 'init':
-        this.setState({
-          socketReady: true,
-          token: message.token,
-          roomId: message.room_id,
-          user: {
-            name: message.display_name,
-            profileImage: message.profile_image,
-            userId: message.user_id
-          }
-        });
-        break;
-      case 'notify':
-        this.setState({
-          trackList: [
-            message.track,
-            ...message.next_tracks
-          ]
-        });
-        break;
-      default:
-        console.error(`Unknown message type: ${message.type}`);
+    if (unparsedMessage === 'ping') {
+      this.socket.send('pong');
+    } else {
+      const message = JSON.parse(unparsedMessage);
+      console.log("Received: ", message);
+      switch (message.type) {
+        case 'init':
+          this.setState({
+            socketReady: true,
+            token: message.token,
+            roomId: message.room_id,
+            user: {
+              name: message.display_name,
+              profileImage: message.profile_image,
+              userId: message.user_id
+            }
+          }, () => API.playerState(message.token).then(response => console.log("Is playing ", response.data)));
+          break;
+        case 'notify':
+          this.setState({
+            trackList: [
+              message.track,
+              ...message.next_tracks
+            ]
+          });
+          break;
+        default:
+          console.error(`Unknown message type: ${message.type}`);
+      }
     }
   }
 
   createRoom() {
-    this.socket = new WebSocket(`${wsBase}/create?code=${this.code}`);
+    this.socket = new WebSocket(`${WS_BASE}/create?code=${this.code}`);
     this.socket.addEventListener('open', () => this.setState({
       isRoomOwner: true,
     }));
@@ -86,7 +90,7 @@ class Room extends Component {
   joinRoom() {
     const {roomCode} = this.state;
 
-    this.socket = new WebSocket(`${wsBase}/join?code=${this.code}&room_id=${roomCode}`);
+    this.socket = new WebSocket(`${WS_BASE}/join?code=${this.code}&room_id=${roomCode}`);
     this.socket.addEventListener('open', () => this.setState({
       isRoomOwner: false,
     }));
@@ -141,9 +145,14 @@ class Room extends Component {
                           name={user.name}
                           profileImage={user.profileImage}
                       />)}
-                      <span>
-                        {roomId}
+                  <div className="room-header-info">
+                    <span style={{color: '#a9a9a9'}}>
+                      Room
+                    </span>
+                    <span>
+                      {roomId}
                       </span>
+                  </div>
                 </div>
                 <SongList
                     userId={user && user.userId}

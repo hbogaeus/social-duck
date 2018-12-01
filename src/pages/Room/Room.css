@@ -13,6 +13,11 @@
     justify-content: space-between;
 }
 
+.room-header-info {
+    display: flex;
+    flex-direction: column;
+}
+
 .search-main {
     margin-top: 16px;
 }
@@ -20,6 +25,7 @@
 .song-list-main {
     margin-top: 24px;
     flex-grow: 2;
+    overflow: scroll;
 }
 
 .player-control-main {
@@ -28,6 +34,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.player-control-skip-button {
+    background: none;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    transition: background-color 200ms ease;
 }
 
 .search-input {
@@ -41,7 +59,7 @@
     width: 100%;
     border: 0;
     font-family: Spotify;
-    background: #ffffff;
+    background: #f7f7f7;
 }
 
 .search-input:focus {
@@ -56,7 +74,7 @@
 .results {
     display: flex;
     flex-direction: column;
-    margin: 24px;
+    margin: 64px 24px 24px 24px;
 }
 
 .search-item {
@@ -93,14 +111,15 @@
     color: #cccccc;
 }
 
-.search-item-add-button {
-
-}
-
 .overlay-close-button {
     position: absolute;
     right: 16px;
     top: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 48px;
+    height: 48px;
 }
 
 .overlay {
@@ -131,6 +150,9 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .user-info-name {
@@ -160,14 +182,32 @@
     flex-direction: row;
     align-items: center;
     height: 100px;
+    margin-bottom: 8px;
 }
 
 .song-list-item-artist {
     color: #a9a9a9;
 }
 
+.song-list-item-vote-button {
+    background: none;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    transition: background-color 200ms ease;
+}
+
+.song-list-item-vote-button:hover {
+    background-color: #a9a9a94d;
+}
+
 .song-list-item-votes {
-    margin-right: 16px;
+    margin-left: 16px;
+    margin-right: 8px;
 }
 
 .song-list-item-image {

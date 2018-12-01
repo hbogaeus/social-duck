@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Camera from 'react-feather/dist/icons/x';
 import * as API from '../../api';
 import SearchItem from "./SearchItem";
 import classnames from 'classnames';
@@ -52,7 +53,9 @@ class Search extends Component {
 
   closeOverlay() {
     this.setState({
-      overlayOpen: false
+      overlayOpen: false,
+      query: '',
+      result: []
     });
   }
 
@@ -70,7 +73,9 @@ class Search extends Component {
               onChange={this.handleQueryChange}
           />
           <div className={classnames("overlay", {"open": overlayOpen})}>
-            <button onClick={this.closeOverlay}>Close</button>
+            <button className="overlay-close-button" onClick={this.closeOverlay}>
+              <Camera color="white" size={48} />
+            </button>
             <div className="results">
               {result.map(item => (
                   <SearchItem

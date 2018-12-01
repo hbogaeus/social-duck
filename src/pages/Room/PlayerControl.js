@@ -1,17 +1,12 @@
 import React, { PureComponent } from 'react';
+import SkipForward from 'react-feather/dist/icons/skip-forward';
 import * as API from '../../api';
 
 class PlayerControl extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handleSkipClick = this.handleSkipClick.bind(this);
-  }
-
-  handlePlayClick() {
-    const {token} = this.props;
-    API.play(token);
   }
 
   handleSkipClick() {
@@ -23,8 +18,9 @@ class PlayerControl extends PureComponent {
   render() {
     return (
         <div className="player-control-main">
-          <button onClick={this.handlePlayClick}>Play</button>
-          <button onClick={this.handleSkipClick}>Skip</button>
+          <button className="player-control-skip-button" onClick={this.handleSkipClick}>
+            <SkipForward size={40}/>
+          </button>
         </div>
     )
   }
